@@ -19,6 +19,9 @@ namespace API
     public class Startup
     {
         public IConfiguration _config { get; }
+
+        private const string webClientUrl = "https://localhost:4200";
+
         public Startup(IConfiguration config)
         {
             _config = config;
@@ -33,6 +36,7 @@ namespace API
             });
 
             services.AddControllers();
+            services.AddCors();
 
             services.AddSwaggerGen(c =>
             {
@@ -51,6 +55,8 @@ namespace API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().WithOrigins(webClientUrl));
 
             app.UseRouting();
 
