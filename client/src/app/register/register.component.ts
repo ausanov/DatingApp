@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AccountService } from '../_services/account.service';
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
 	private onDestroy$: Subject<void> = new Subject<void>();
 
-	constructor(private accountService: AccountService) {
+	constructor(private accountService: AccountService, private toastrService: ToastrService) {
 		//
 	}
 
@@ -27,8 +28,10 @@ export class RegisterComponent implements OnInit {
 		this.accountService.register(this.model).pipe(takeUntil(this.onDestroy$)).subscribe((user) => {
 			console.log(user);
 			this.cancel();
-		}, (error: string | any) => {
+		}, (error: { error: string | { title: string } }) => {
 			console.log(error);
+			let msg: string = typeof error.error === "string" ? error.error : error.error.title;
+			this.toastrService.error(msg);
 		});
 	}
 

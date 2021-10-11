@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { User } from '../_models/User';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class NavComponent implements OnInit {
 
 	private onDestroy$: Subject<void> = new Subject<void>();
 
-	constructor(public accountService: AccountService) {
+	constructor(public accountService: AccountService, private router: Router, private toastrService: ToastrService) {
 		//
 	}
 
@@ -25,14 +26,17 @@ export class NavComponent implements OnInit {
 	public login() {
 		this.accountService.login(this.model).pipe(takeUntil(this.onDestroy$)).subscribe(
 			(response: any) => {
-				console.log(response);
+				this.router.navigateByUrl('/members');
 			},
-			(error: string | any) => {
+			(error: { error: string, title: string }) => {
 				console.log(error);
+				let msg: string = typeof error.error === "string" ? error.error : error.title;
+				this.toastrService.error(msg);
 			});
 	}
 
 	public logout() {
 		this.accountService.logout();
+		this.router.navigateByUrl('/');
 	}
 }

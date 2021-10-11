@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { AppConstants } from '../_models/DatingConstantsAndEnums';
 
 @Component({
 	selector: 'app-home',

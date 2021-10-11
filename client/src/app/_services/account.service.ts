@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, OperatorFunction, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppConstants } from '../_models/DatingConstantsAndEnums';
 import { User } from '../_models/User';
