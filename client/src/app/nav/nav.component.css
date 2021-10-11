@@ -1,0 +1,8 @@
+.dropdown-item,
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.dropdown-toggle {
+    text-decoration: none;
+}

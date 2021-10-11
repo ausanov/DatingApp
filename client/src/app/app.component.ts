@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from "rxjs/operators";
+import { User } from './_models/User';
+import { AccountService } from './_services/account.service';
 
 @Component({
 	selector: 'app-root',
@@ -12,27 +11,19 @@ export class AppComponent implements OnInit {
 	public title: string = 'Dating App';
 	public users: any | any[] = [];
 
-	private readonly apiUrl: string = 'https://localhost:5001/api/';
-	private onDestroy$: Subject<void> = new Subject<void>();
-
-	constructor(private http: HttpClient) {
+	constructor(private accountService: AccountService) {
 		//
 	}
 
 	public ngOnInit() {
-		this.getUsers();
+		this.setCurrentUser();
 	}
 
-	private getUsers() {
-		this.http.get(`${this.apiUrl}users`)
-		// .pipe(takeUntil(this.onDestroy$))
-		.subscribe(
-			(response) => {
-				this.users = response;
-			},
-			(error: string | any[]) => {
-				console.log(error);
-			}
-		);
+	private setCurrentUser() {
+		let storedUser = localStorage.getItem('user');
+		if (storedUser) {
+			const user: User = JSON.parse(storedUser);
+			this.accountService.setCurrentUser(user);
+		}
 	}
 }
