@@ -1,0 +1,15 @@
+<h4>Internal Server Error - refreshing the page will make the error dissapear. <i class="fa fa-smile-o"></i></h4>
+<ng-container *ngIf="error">
+    <h5 class="text-danger">Error: {{ error.message }}</h5>
+    <p class="font-weight-bold">Note: If you are seeing this then Angular is probably not to blame. <i class="fa fa-frown-o"></i></p>
+    <p>What to do next?</p>
+    <ol>
+        <li>Open Chrome Dev Tools</li>
+        <li>Inspect the Network tab</li>
+        <li>Check the failing request</li>
+        <li>Examine the request URL - make sure it is correct</li>
+        <li>Reproduce the error in Swagger at your API Project - if you see the same error so Angular is not to blame</li>
+    </ol>
+    <p>Follow a stack trace - and you will probably find how to get rid of headache :)</p>
+    <code class="error-details mt-5">{{ error.details }}</code>
+</ng-container>
