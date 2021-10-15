@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AppConstants } from 'src/app/_models/DatingConstantsAndEnums';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-test-errors',
@@ -23,7 +23,7 @@ export class TestErrorsComponent implements OnInit {
 	}
 
 	public get404Error() {
-		this.http.get(`${AppConstants.apiUrl}buggy/not-found`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
+		this.http.get(`${environment.apiUrl}buggy/not-found`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
 			console.log(response);
 		}, (error) => {
 			console.log(error);
@@ -31,7 +31,7 @@ export class TestErrorsComponent implements OnInit {
 	}
 
 	public get400Error() {
-		this.http.get(`${AppConstants.apiUrl}buggy/bad-request`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
+		this.http.get(`${environment.apiUrl}buggy/bad-request`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
 			console.log(response);
 		}, (error) => {
 			console.log(error);
@@ -39,7 +39,7 @@ export class TestErrorsComponent implements OnInit {
 	}
 
 	public get500Error() {
-		this.http.get(`${AppConstants.apiUrl}buggy/server-error`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
+		this.http.get(`${environment.apiUrl}buggy/server-error`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
 			console.log(response);
 		}, (error) => {
 			console.log(error);
@@ -47,7 +47,7 @@ export class TestErrorsComponent implements OnInit {
 	}
 
 	public get401Error() {
-		this.http.get(`${AppConstants.apiUrl}buggy/auth`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
+		this.http.get(`${environment.apiUrl}buggy/auth`).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
 			console.log(response);
 		}, (error) => {
 			console.log(error);
@@ -55,7 +55,7 @@ export class TestErrorsComponent implements OnInit {
 	}
 
 	public get400ValidationError() {
-		this.http.post(`${AppConstants.apiUrl}account/register`, {}).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
+		this.http.post(`${environment.apiUrl}account/register`, {}).pipe(takeUntil(this.onDestroy$)).subscribe((response) => {
 			console.log(response);
 		}, (error) => {
 			console.log(error);

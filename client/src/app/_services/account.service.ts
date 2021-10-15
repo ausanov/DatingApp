@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppConstants } from '../_models/DatingConstantsAndEnums';
+import { environment } from 'src/environments/environment';
 import { User } from '../_models/User';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class AccountService {
 	}
 
 	public login(model: any) {
-		return this.http.post(`${AppConstants.apiUrl}account/login`, model).pipe(
+		return this.http.post(`${environment.apiUrl}account/login`, model).pipe(
 			map((response: Object) => {
 				const user: User = response as User;
 				if (user) {
@@ -39,7 +39,7 @@ export class AccountService {
 	}
 
 	public register(model: any) {
-		return this.http.post(`${AppConstants.apiUrl}account/register`, model).pipe(
+		return this.http.post(`${environment.apiUrl}account/register`, model).pipe(
 			map((response: Object) => {
 				if (response) {
 					localStorage.setItem('user', JSON.stringify(response));
