@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Member } from 'src/app/_models/Member';
 import { MembersService } from 'src/app/_services/members.service';
 
@@ -10,25 +9,17 @@ import { MembersService } from 'src/app/_services/members.service';
 	styleUrls: ['./member-list.component.css']
 })
 export class MemberListComponent implements OnInit {
-	public members: Member[] = [];
-
-	private onDestroy$: Subject<void> = new Subject<void>();
+	public members$: Observable<Member[]> = new Observable();
 
 	constructor(private membersService: MembersService) {
 		//
 	}
 
 	ngOnInit(): void {
-		this.loadMembers();
+		this.members$ = this.membersService.getMemebers();
 	}
 
 	public memberTrackFunc(index: number, el: Member): number {
 		return el.id;
-	}
-
-	private loadMembers() {
-		this.membersService.getMemebers().pipe(takeUntil(this.onDestroy$)).subscribe((members) => {
-			this.members = members;
-		});
 	}
 }

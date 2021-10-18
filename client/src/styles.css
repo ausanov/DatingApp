@@ -2,7 +2,8 @@
 
 /* 1. Overrides for Bootstrap elements */
 
-.btn {
+.btn,
+.form-control {
     border-radius: 3px !important;
 }
 
